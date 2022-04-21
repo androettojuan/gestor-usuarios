@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Card from "./components/Card/Card";
+import Container from "./components/Container/Container";
+import UserForm from "./components/userForm/userForm";
 
 function App() {
+  const [user, setUsers] = useState([]);
+  
+
+  const submit = (e) => {
+    setUsers([...user, e]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Card>
+        <div style={{ padding: 20 }}>
+          <UserForm
+            handleSubmit={submit}
+          ></UserForm>
+        </div>
+      </Card>
+      <Card>
+        <ul>
+          {user.map((user) => (
+            <li key={user.email}>
+              {`${user.name} ${user.lastname} ${user.email}`}
+            </li>
+          ))}
+        </ul>
+      </Card>
+    </Container>
   );
 }
 
